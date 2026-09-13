@@ -1,0 +1,12 @@
+{% extends "social/base.html" %}
+{% block title %}Edit profile — Pulse{% endblock %}
+{% block content %}
+<div class="auth-form-wrap">
+    <h1>Edit your profile</h1>
+    <form method="post" enctype="multipart/form-data" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="cta">Save changes</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "social/base.html" %}
+{% block title %}{{ profile_user.username }} — Pulse{% endblock %}
+
+{% block content %}
+<div class="profile-header">
+    <div class="profile-avatar large">
+        {% if profile_user.profile.avatar %}
+            <img src="{{ profile_user.profile.avatar.url }}" alt="{{ profile_user.username }}">
+        {% else %}
+            <span class="avatar-fallback">{{ profile_user.username|first|upper }}</span>
+        {% endif %}
+    </div>
+    <div class="profile-info">
+        <h1>{{ profile_user.username }}</h1>
+        <p class="bio">{{ profile_user.profile.bio|default:"No bio yet." }}</p>
+        <div class="profile-stats">
+            <span>{{ posts|length }} post{{ posts|length|pluralize }}</span>
+            <a href="{% url 'followers_list' profile_user.username %}">{{ profile_user.profile.followers_count }} followers</a>
+            <a href="{% url 'following_list' profile_user.username %}">{{ profile_user.profile.following_count }} following</a>
+        </div>
+    </div>
+    {% if profile_user == request.user %}
+        <a href="{% url 'profile_edit' %}" class="cta outline">Edit profile</a>
+    {% else %}
+        <form method="post" action="{% url 'follow_toggle' profile_user.username %}">
+            {% csrf_token %}
+            <button type="submit" class="follow-btn {% if is_following %}following{% endif %}">
+                {% if is_following %}Following{% else %}Follow{% endif %}
+            </button>
+        </form>
+    {% endif %}
+</div>
+
+<div class="feed-main single-col">
+    {% for post in posts %}
+        {% include "social/_post_card.html" %}
+    {% empty %}
+        <p class="empty">No posts yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

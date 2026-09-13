@@ -1,0 +1,35 @@
+{% load static social_extras %}
+<article class="post-card" data-post-id="{{ post.id }}">
+    <div class="post-header">
+        <a href="{% url 'profile_detail' post.author.username %}" class="post-avatar">
+            {% if post.author.profile.avatar %}
+                <img src="{{ post.author.profile.avatar.url }}" alt="{{ post.author.username }}">
+            {% else %}
+                <span class="avatar-fallback">{{ post.author.username|first|upper }}</span>
+            {% endif %}
+        </a>
+        <div>
+            <a href="{% url 'profile_detail' post.author.username %}" class="post-author">{{ post.author.username }}</a>
+            <span class="post-time">{{ post.created_at|timesince }} ago</span>
+        </div>
+        {% if post.author == request.user %}
+        <form method="post" action="{% url 'post_delete' post.id %}" class="post-delete-form">
+            {% csrf_token %}
+            <button type="submit" class="link-btn">Delete</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <a href="{{ post.get_absolute_url }}" class="post-body-link">
+        <p class="post-content">{{ post.content }}</p>
+        {% if post.image %}<img class="post-image" src="{{ post.image.url }}" alt="">{% endif %}
+    </a>
+
+    <div class="post-actions">
+        <button class="like-btn {% if post|liked_by:request.user %}liked{% endif %}" data-post-id="{{ post.id }}">
+            <span class="like-icon">&hearts;</span>
+            <span class="like-count">{{ post.likes_count }}</span>
+        </button>
+        <a href="{{ post.get_absolute_url }}" class="comment-link">{{ post.comments_count }} comment{{ post.comments_count|pluralize }}</a>
+    </div>
+</article>

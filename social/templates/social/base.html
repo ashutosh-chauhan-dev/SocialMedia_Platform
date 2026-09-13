@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pulse — a Django social media platform.">
+    <title>{% block title %}Pulse{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/likes.js' %}" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a href="{% url 'feed' %}" class="brand">Pulse</a>
+            {% if request.user.is_authenticated %}
+            <form class="search-form" action="{% url 'explore' %}" method="get">
+                <input type="search" name="q" placeholder="Search posts or people…" value="{{ query|default:'' }}" maxlength="100" aria-label="Search">
+            </form>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="{% url 'feed' %}">Home</a>
+                <a href="{% url 'explore' %}">Explore</a>
+                <a href="{% url 'profile_detail' request.user.username %}">Profile</a>
+                <form method="post" action="{% url 'logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-button">Log out</button>
+                </form>
+            </nav>
+            {% else %}
+            <nav class="nav-links" aria-label="Account navigation">
+                <a href="{% url 'login' %}">Log in</a>
+                <a href="{% url 'register' %}" class="cta">Sign up</a>
+            </nav>
+            {% endif %}
+        </div>
+    </header>
+    <main class="wrap">
+        {% if messages %}
+            <ul class="messages" aria-live="polite">
+                {% for message in messages %}
+                    <li class="message {{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="wrap">Built for the CodeAlpha Full Stack Development internship — Task 2: Social Media Platform.</div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "social/base.html" %}
+{% block title %}{{ title }} — Pulse{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<div class="user-list">
+    {% for u in users %}
+    <div class="suggestion-row wide">
+        <a href="{% url 'profile_detail' u.username %}">{{ u.username }}</a>
+    </div>
+    {% empty %}
+    <p class="empty">Nobody here yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

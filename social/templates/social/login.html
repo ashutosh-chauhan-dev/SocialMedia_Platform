@@ -1,0 +1,13 @@
+{% extends "social/base.html" %}
+{% block title %}Log in — Pulse{% endblock %}
+{% block content %}
+<div class="auth-form-wrap">
+    <h1>Log in</h1>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="cta">Log in</button>
+    </form>
+    <p>New here? <a href="{% url 'register' %}">Create an account</a></p>
+</div>
+{% endblock %}

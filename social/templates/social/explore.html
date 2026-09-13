@@ -1,0 +1,15 @@
+{% extends "social/base.html" %}
+{% block title %}Explore — Pulse{% endblock %}
+
+{% block content %}
+<h1>{% if query %}Results for "{{ query }}"{% else %}Explore{% endif %}</h1>
+<div class="feed-main single-col">
+    {% if posts %}
+        {% for post in posts %}
+            {% include "social/_post_card.html" %}
+        {% endfor %}
+    {% else %}
+        <p class="empty">No posts found.</p>
+    {% endif %}
+</div>
+{% endblock %}

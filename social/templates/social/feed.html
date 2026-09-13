@@ -1,0 +1,42 @@
+{% extends "social/base.html" %}
+{% load static %}
+{% block title %}Home — Pulse{% endblock %}
+{% block content %}
+<div class="feed-layout">
+    <div class="feed-main">
+        <form method="post" enctype="multipart/form-data" class="composer">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.content.errors }}
+            {{ form.content }}
+            <div class="composer-row">
+                <label class="file-label">📷 {{ form.image }}</label>
+                {{ form.image.errors }}
+                <button type="submit" class="cta">Post</button>
+            </div>
+        </form>
+        {% if posts %}
+            {% for post in posts %}
+                {% include "social/_post_card.html" %}
+            {% endfor %}
+        {% else %}
+            <p class="empty">Your feed is empty. Follow some people from the suggestions, or check out <a href="{% url 'explore' %}">Explore</a>.</p>
+        {% endif %}
+    </div>
+    <aside class="feed-sidebar">
+        <h3>Suggested for you</h3>
+        {% for user in suggestions %}
+        <div class="suggestion-row">
+            <a href="{% url 'profile_detail' user.username %}">{{ user.username }}</a>
+            <form method="post" action="{% url 'follow_toggle' user.username %}">
+                {% csrf_token %}
+                <button type="submit" class="follow-btn small">Follow</button>
+            </form>
+        </div>
+        {% empty %}
+        <p class="muted small">No suggestions right now.</p>
+        {% endfor %}
+    </aside>
+</div>
+<script src="{% static 'js/likes.js' %}" defer></script>
+{% endblock %}
