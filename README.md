@@ -56,7 +56,7 @@ requirements.txt
 ## Local setup — Windows PowerShell
 
 ```powershell
-git clone https://github.com/<your-username>/SocialMedia_Platform.git
+git clone https://github.com/ashutosh-chauhan-dev/SocialMedia_Platform.git
 cd SocialMedia_Platform
 
 py -m venv .venv
@@ -149,4 +149,5 @@ Some deployment warnings are expected until the production environment supplies 
 ## License
 
 This repository is intended as a student portfolio/internship project. Add a license if you plan to distribute or reuse it publicly.
+
 
