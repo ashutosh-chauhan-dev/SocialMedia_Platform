@@ -1,6 +1,6 @@
 # Pulse — SocialMedia_Platform
 
-A portfolio-ready social media platform built with **Django 6.1** and server-rendered templates. This project was created for **CodeAlpha Full Stack Development Internship — Task 2**.
+A portfolio-ready social media platform built with **Django 6.1** and server-rendered templates. This project was created for **Full Stack Development Internship — Task 2**.
 
 ## Features
 
