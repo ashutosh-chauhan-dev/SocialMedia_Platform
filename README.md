@@ -1,4 +1,4 @@
-# Pulse — CodeAlpha Social Media Platform
+# Pulse — SocialMedia_Platform
 
 A portfolio-ready social media platform built with **Django 6.1** and server-rendered templates. This project was created for **CodeAlpha Full Stack Development Internship — Task 2**.
 
@@ -149,5 +149,6 @@ Some deployment warnings are expected until the production environment supplies 
 ## License
 
 This repository is intended as a student portfolio/internship project. Add a license if you plan to distribute or reuse it publicly.
+
 
 
